@@ -1,0 +1,666 @@
+
+; You may customize this and other start-up templates; 
+; The location of this template is c:\emu8086\inc\0_com_template.txt
+
+org 100h
+; Muhamad Fabio
+
+; add your code here
+
+.MODEL LARGE
+.STACK 1000H
+.DATA
+M1 DB 10,13,10,13,'            ****Martabak Sederhana****$',10,13
+M2 DB 10,13,10,13,'Masukan Pilihan Anda $'
+   
+M3 DB 10,13,'**               1.Martabak Manis               **$'
+M4 DB 10,13,'**               2.Martabak Asin                **$'
+
+
+M5 DB 10,13,10,13,'       ***Pilih Martabak Anda Dalam Menu***$'
+
+;Martabak Manis
+M6 DB 10,13,'**      1.Martabak Kacang             15/-      **$'
+M7 DB 10,13,'**      2.Martabak Ketan Item         15/-      **$'
+M8 DB 10,13,'**      3.Martabak Keju               20/-      **$'
+M9 DB 10,13,'**      4.Martabak Coklat             20/-      **$'
+M10 DB 10,13,'**      5.Martabak Coklat Keju        23/-      **$'
+M11 DB 10,13,'**      6.Martabak Coklat Kacang      23/-      **$'
+M12 DB 10,13,'**      7.Martabak Kombinasi          30/-      **$'
+
+;Martabak Asin
+M13 DB 10,13,'**      1.Martabak Biasa              20/-      **$'
+M14 DB 10,13,'**      2.Martabak Istimewa           30/-      **$'
+M15 DB 10,13,'**      3.Martabak Special            40/-      **$'
+M16 DB 10,13,'**      4.Martabak Jumbo              50/-      **$'
+
+;INVALID
+M17 DB 10,13,10,13,'***&&INVALID ENTRY&&***$'
+M18 DB 10,13,'***&&Try Again&&***$'
+
+
+M19 DB 10,13,10,13,'Enter Your Order:$'
+
+M20 DB 10,13,'Quantity:$'
+M21 DB 10,13,'Total Price:$'
+
+
+DRINK DB ?
+QUANTITY DB ?
+
+
+M22 DB 10,13,10,13,'1.Go Back to Main Menu$'
+M23 DB 10,13,'2.EXIT$'
+
+
+;STAR RESIZE
+MR1 DB 10,13,'**                                              **$'
+MR2 DB 10,13,'**************************************************$'
+
+MR3 DB 10,13,'**                                              **$'
+
+MR4 DB 10,13,'**                                              **$'
+MR5 DB 10,13,'**************************************************$'
+
+;MR6 DB 10,13,'**                                    **$'
+;MR7 DB 10,13,'****************************************$'
+
+
+SEJ DB 10,13,10,13,'$'
+
+.CODE
+MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    TOP:
+    
+    LEA DX,M1
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,SEJ  ;NEWLINE
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR2
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR2
+    MOV AH,9
+    INT 21H     ;BORDER
+    
+    LEA DX,MR3
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M3
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M4
+    MOV AH,9
+    INT 21H
+    
+    ;LEA DX,M5
+    ;MOV AH,9
+    ;INT 21H
+    
+    ;LEA DX,M6
+    ;MOV AH,9
+    ;INT 21H
+    
+    ;LEA DX,M7
+    ;MOV AH,9
+    ;INT 21H
+    
+    LEA DX,MR1
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR2
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR2
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M2
+    MOV AH,9
+    INT 21H
+          
+          
+    MOV AH,1
+    INT 21H
+    MOV BH,AL
+    SUB BH,48
+    
+    CMP BH,1
+    JE MARTABAKMANIS
+    
+    CMP BH,2
+    JE MARTABAKASIN
+    
+    
+    JMP INVALID
+    
+    
+    MARTABAKMANIS:
+    LEA DX,M5;MARTABAKMANIS STARTS
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,SEJ;NEWLINE
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR4
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M6
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M7
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M8
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M9
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M10
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M11
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M12
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR4
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M19 
+    MOV AH,9
+    INT 21H
+    
+    
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    SUB BL,48
+
+    CMP BL,1
+    JE MARTABAKKACANG
+    
+    CMP BL,2
+    JE MARTABAKKETANITEM
+    
+    CMP BL,3
+    JE TWENTY
+    
+    CMP BL,4
+    JE TWENTY
+    
+    CMP BL,5
+    JE MARTABAKCOKLATKEJU
+    
+    CMP BL,6
+    JE MARTABAKCOKLATKACANG
+    
+    CMP BL,7
+    JE THIRTY
+               
+               
+    JMP INVALID
+
+    
+TWENTY:
+    MOV BL,2
+    LEA DX,M20
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    MUL BL
+    AAM
+    
+    MOV CX,AX
+    ADD CH,48
+    ADD CL,48
+    
+    LEA DX,M21
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV DL,CL
+    INT 21H
+    
+    MOV DL,'0'
+    INT 21H
+    
+    ;FOR /- PRINT
+    MOV DL,47
+    INT 21H
+    MOV DL,45
+    INT 21H
+    
+    ;GO BACK TO MAIN MENU
+    LEA DX,M22
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M23
+    MOV AH,9
+    INT 21H
+    
+    ;MAIN MENU
+    LEA DX,M2
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    CMP AL,1
+    JE TOP
+    
+    JMP EXIT
+    
+
+THIRTY:
+    MOV BL,3
+    LEA DX,M20
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    MUL BL
+    AAM
+    
+    MOV CX,AX
+    ADD CH,48
+    ADD CL,48
+    
+    LEA DX,M21
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV DL,CL
+    INT 21H
+    
+    MOV DL,'0'
+    INT 21H
+    
+    ;FOR /- PRINT
+    MOV DL,47
+    INT 21H
+    MOV DL,45
+    INT 21H
+    
+    ;GO BACK TO MAIN MENU
+    LEA DX,M22
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M23
+    MOV AH,9
+    INT 21H
+    
+    ;MAIN MENU
+    LEA DX,M2
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    CMP AL,1
+    JE TOP
+    
+    JMP EXIT
+    
+MARTABAKKACANG:
+    MOV BL,15
+    JMP COMMON
+    
+MARTABAKKETANITEM:
+    MOV BL,15
+    JMP COMMON
+        
+MARTABAKCOKLATKEJU:
+    MOV BL,23
+    JMP COMMON
+    
+MARTABAKCOKLATKACANG:
+    MOV BL,23
+    JMP COMMON
+    
+    COMMON: 
+    LEA DX,M20              
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    MUL BL 
+    AAM 
+ 
+    MOV CX,AX 
+    ADD CH,48
+    ADD CL,48
+        
+    LEA DX,M21              
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV DL,CL
+    INT 21H 
+
+    
+    ;FOR /- PRINT
+    MOV DL,47
+    INT 21H
+    MOV DL,45
+    INT 21H
+    
+    ;GO BACK TO MAIN MENU
+    
+    LEA DX,M22
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M23
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M2
+    MOV AH,9
+    INT 21H 
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    CMP AL,1
+    JE TOP
+    
+    JMP EXIT    
+    
+    
+    MARTABAKASIN:
+    LEA DX,M5;MARTABAKASIN STARTS
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,SEJ;NEWLINE
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR4
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M13
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M14
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M15
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M16
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR4
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,MR5
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M19 
+    MOV AH,9
+    INT 21H
+    
+    
+    MOV AH,1
+    INT 21H
+    MOV BL,AL
+    SUB BL,48
+    
+    CMP BL,1
+    JE TWENTY
+    
+    CMP BL,2
+    JE THIRTY
+    
+    CMP BL,3
+    JE FORTY
+    
+    CMP BL,4
+    JE FIFTY
+               
+               
+    JMP INVALID
+    
+    
+FORTY:
+    MOV BL,4
+    LEA DX,M20
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    MUL BL
+    AAM
+    
+    MOV CX,AX
+    ADD CH,48
+    ADD CL,48
+    
+    LEA DX,M21
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV DL,CL
+    INT 21H
+    
+    MOV DL,'0'
+    INT 21H
+    
+    ;FOR /- PRINT
+    MOV DL,47
+    INT 21H
+    MOV DL,45
+    INT 21H
+    
+    ;GO BACK TO MAIN MENU
+    LEA DX,M22
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M23
+    MOV AH,9
+    INT 21H
+    
+    ;MAIN MENU
+    LEA DX,M2
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    CMP AL,1
+    JE TOP
+    
+    JMP EXIT
+    
+FIFTY:
+    MOV BL,5
+    LEA DX,M20
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    MUL BL
+    AAM
+    
+    MOV CX,AX
+    ADD CH,48
+    ADD CL,48
+    
+    LEA DX,M21
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,CH
+    INT 21H
+    
+    MOV DL,CL
+    INT 21H
+    
+    MOV DL,'0'
+    INT 21H
+    
+    ;FOR /- PRINT
+    MOV DL,47
+    INT 21H
+    MOV DL,45
+    INT 21H
+    
+    ;GO BACK TO MAIN MENU
+    LEA DX,M22
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M23
+    MOV AH,9
+    INT 21H
+    
+    ;MAIN MENU
+    LEA DX,M2
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    
+    CMP AL,1
+    JE TOP
+    
+    JMP EXIT
+           
+                  
+    INVALID:
+    
+    
+    LEA DX,M17
+    MOV AH,9
+    INT 21H
+    
+    LEA DX,M18
+    MOV AH,9
+    INT 21H
+    
+    JMP EXIT
+    
+    
+    EXIT:
+    
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN    
+    
+     
+    
+    
+                                
+ret
+
+
+
+
